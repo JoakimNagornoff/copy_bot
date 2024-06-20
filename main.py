@@ -1,6 +1,15 @@
-from copy_bot import setup_bot
+import asyncio
+from telegrambot import main as telegram_main
+from solana_dex_monitor import monitor_wallets_and_notify
+
+async def start_services():
+    await asyncio.gather(
+        telegram_main(),
+        monitor_wallets_and_notify()
+    )
 
 if __name__ == '__main__':
-    updater = setup_bot()
-    updater.start_polling()
-    updater.idle()
+    try:
+        asyncio.run(start_services())
+    except RuntimeError as e:
+        print(f"RuntimeError: {e}")
