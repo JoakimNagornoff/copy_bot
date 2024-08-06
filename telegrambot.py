@@ -1,7 +1,7 @@
 import asyncio
 from telegram import Update, Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-from config import TELEGRAM_TOKEN, CHAT_ID
+from config import TELEGRAM_TOKEN, CHAT_ID, WALLET_ADDRESSES
 
 # Initialize the bot
 bot = Bot(token=TELEGRAM_TOKEN)
@@ -24,9 +24,10 @@ async def main():
     await application.initialize()
     await application.start()
     await send_telegram_message('Bot started! Monitoring wallets for activity.')
+
     try:
         await application.updater.start_polling()
-        await asyncio.Future()  # Run forever
+        await asyncio.Future()
     except Exception as e:
         print(f"Exception in main loop: {e}")
     finally:
