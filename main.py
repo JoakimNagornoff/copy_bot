@@ -5,11 +5,8 @@ from solana_dex_monitor import monitor_wallets_and_notify
 async def start_services():
     await asyncio.gather(
         telegram_main(),
-        monitor_wallets_and_notify()
+        monitor_wallets_and_notify(),
     )
 
 if __name__ == '__main__':
-    try:
-        asyncio.run(start_services())
-    except RuntimeError as e:
-        print(f"RuntimeError: {e}")
+    asyncio.run(start_services())
